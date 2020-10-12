@@ -77,7 +77,7 @@ class Stars {
       const a = item.querySelector("a");
       a.style.color = "";
       if (a.id <= e.target.id) {
-        a.style.color = "#ccac00";
+        a.style.color = "#FFD700";
       } else {
         a.style.color = "";
       }
