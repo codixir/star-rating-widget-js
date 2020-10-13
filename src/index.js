@@ -6,27 +6,22 @@ class Stars {
     numOfStars = 0,
     styleOptions = { margin: "5px" }
   ) {
-    this.currentRating = 0;
     this.isValid = false;
     this.numOfStars = numOfStars;
     this.stars = [];
-    this.starsContainer = null;
     this.styleOptions = styleOptions;
-
-    const starsContainer = document.querySelector(className);
+    this.starsContainer = document.querySelector(className);
 
     try {
-      if (starsContainer) {
+      if (this.starsContainer) {
         this.className = className;
         this.isValid = true;
-        this.starsContainer = starsContainer;
       } else {
         this.isValid = false;
         throw new Error(`${className} does not exist.`);
       }
     } catch (e) {
-      this.isValid = false;
-      console.log(e);
+      console.log(e.message);
     }
 
     if (this.isValid && this.numOfStars > 0) {
@@ -47,14 +42,16 @@ class Stars {
     const stars = this.stars.map((star) => {
       const li = document.createElement("li");
       const a = document.createElement("a");
+
       li.style.margin = this.styleOptions.margin;
       a.style.cursor = "pointer";
-      a.addEventListener("click", (e) => {
-        this.setRating(ul, e);
-      });
 
       a.innerHTML = "&#9733";
       a.id = star.id;
+
+      a.addEventListener("click", (e) => {
+        this.setRating(ul, e);
+      });
 
       li.appendChild(a);
       return li;
@@ -72,22 +69,19 @@ class Stars {
 
   setRating(ul, e) {
     const listItems = ul.querySelectorAll("li");
+    const currentId = Number(e.target.id);
 
     for (const item of listItems) {
       const a = item.querySelector("a");
       a.style.color = "";
-      if (a.id <= e.target.id) {
-        a.style.color = "#FFD700";
+      if (a.id <= currentId) {
+        a.style.color = "#ccac00";
       } else {
         a.style.color = "";
       }
     }
-
-    this.currentRating = e.target.id;
-
-    return this.currentRating;
   }
 }
 
 // Usage
-const stars1 = new Stars(".stars-container1", 5);
+const stars1 = new Stars(".stars-container1", 11);
